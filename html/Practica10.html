@@ -1,0 +1,812 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      -->
+<title>Pr&aacute;ctica 10: Respuesta en frecuencia, simulaci&oacute;n en MATLAB</title>
+<meta name="generator" content="MATLAB 23.2">
+<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
+<meta name="DC.date" content="2023-12-23">
+<meta name="DC.source" content="Practica10.m">
+<style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style>
+</head>
+<body>
+<div class="content">
+<h1>Pr&aacute;ctica 10: Respuesta en frecuencia, simulaci&oacute;n en MATLAB</h1>
+<!--introduction-->
+<div>
+<ul>
+<li>Moreno Castro Jos&eacute; Pablo</li>
+<li>Pedraza Ocampo Eduardo</li>
+<li>Portillo Mart&iacute;nez Carolina</li>
+<li>Reyes Alvarez Angel</li>
+</ul>
+</div>
+<!--/introduction-->
+<h2>Contents</h2>
+<div>
+<ul>
+<li>
+<a href="#1">Introducci&oacute;n</a>
+</li>
+<li>
+<a href="#2">Problema 2.</a>
+</li>
+<li>
+<a href="#3">Problema 5</a>
+</li>
+<li>
+<a href="#4">Problema 6</a>
+</li>
+</ul>
+</div>
+<h2 id="1">Introducci&oacute;n</h2>
+<p>En esta secci&oacute;n, exploramos la fuerte dependencia de la respuesta en frecuencia en la ubicaci&oacute;n de polos y ceros de H(s). Esta dependencia se&ntilde;ala un procedimiento intuitivo simple para el dise&ntilde;o de filtros.</p>
+<p>4.10-1 Dependencia de la Respuesta en Frecuencia en Polos y Ceros de H(s)</p>
+<p>La respuesta en frecuencia de un sistema proporciona informaci&oacute;n sobre la capacidad de filtrado del sistema. La funci&oacute;n de transferencia del sistema se puede expresar como:</p>
+<p>
+<img src="Practica10_eq08496230443892615481.png" alt="$H(s) = \frac{P(s)}{Q(s)} = b_{0} \frac{(s-z_{1})(s-z_{2})\cdots (s-z_{N})}{(s-\lambda_{1})(s-\lambda_{2})\cdots(s-\lambda_{N})}$" style="width:214px;height:23px;"></p>
+<p>donde <img src="Practica10_eq03174630390636350639.png" alt="$z _{1}$" style="width:11px;height:9px;">, <img src="Practica10_eq14443089334861597364.png" alt="$z_{2}$" style="width:11px;height:9px;">, ..., <img src="Practica10_eq15194011197096649902.png" alt="$z_{N}$" style="width:16px;height:9px;"> son ceros y <img src="Practica10_eq08181278550983264830.png" alt="$\lambda _{1}$" style="width:13px;height:13px;">, <img src="Practica10_eq14927576724549991815.png" alt="$\lambda_ {2}$" style="width:13px;height:13px;">, ..., <img src="Practica10_eq09510848266506758313.png" alt="$\lambda _{N}$" style="width:18px;height:13px;"> son los polos de H(s). La respuesta de la funci&oacute;n de transferencia H(s) en una frecuencia s = p es:</p>
+<p>
+<img src="Practica10_eq14164146540913644871.png" alt="$H(s)|{s=p} = b{0} \frac{(p-z_{1})(p-z_{2})\cdots(p-z_{N})}{(p-\lambda_{1})(p-\lambda_{2})\cdots(p-\lambda_{N})}$" style="width:211px;height:23px;"></p>
+<p>Esta ecuaci&oacute;n incluye factores de la forma <img src="Practica10_eq02491441587082594410.png" alt="$(p - z_{i})$" style="width:46px;height:15px;"> y <img src="Practica10_eq10841670710170321610.png" alt="$(p - \lambda _{i})$" style="width:47px;height:15px;">, que se representan como vectores en el plano complejo. La magnitud de estos vectores y sus &aacute;ngulos se utilizan para calcular <img src="Practica10_eq09140821469344198582.png" alt="$|H(s)|{s=p}$" style="width:73px;height:15px;"> y <img src="Practica10_eq00414381976265891129.png" alt="$\angle H(s)|{s=p}$" style="width:77px;height:15px;"></p>
+<p>Por lo tanto,</p>
+<p>
+<img src="Practica10_eq04775208996312575585.png" alt="$|H(s)|{s=p} = b{0} \frac{r_{1}r_{2}\cdots r_{N}}{d_{1}d_{2}\cdots d_{N}}$" style="width:148px;height:18px;"></p>
+<p>y</p>
+<p>
+<img src="Practica10_eq11297280880888131094.png" alt="$\angle H(s)|{s=p} = (\phi{1} + \phi_{2} + \cdots + \phi_{N}) - (\theta_{1}+\theta_{2}+\cdots+\theta_{N})$" style="width:370px;height:15px;"></p>
+<p>Usando este procedimiento, se puede determinar <img src="Practica10_eq09230322972160416371.png" alt="$H(s)$" style="width:30px;height:15px;"> para cualquier valor de s. Para calcular la respuesta en frecuencia <img src="Practica10_eq03984882095637579914.png" alt="$H(j\omega)$" style="width:40px;height:15px;">, se utiliza <img src="Practica10_eq10742585855918706835.png" alt="$s = j\omega$" style="width:42px;height:14px;"> se conectan todos los polos y ceros a <img src="Practica10_eq17778029819869168188.png" alt="$j\omega$" style="width:17px;height:14px;"> y se determinan <img src="Practica10_eq05003985003608650451.png" alt="$|H(j\omega)|$" style="width:46px;height:15px;"> y <img src="Practica10_eq18080590833608159322.png" alt="$\angle H(j\omega)$" style="width:47px;height:15px;"> utilizando las ecuaciones anteriores.</p>
+<p>Mejora de Ganancia por un Polo</p>
+<p>Para comprender el efecto de los polos y ceros en la respuesta en frecuencia, se considera un caso hipot&eacute;tico de un solo polo <img src="Practica10_eq05515675851063821997.png" alt="$-\alpha + j\omega_0$" style="width:58px;height:14px;">. La respuesta en amplitud <img src="Practica10_eq05003985003608650451.png" alt="$|H(j\omega)|$" style="width:46px;height:15px;"> para un valor espec&iacute;fico de <img src="Practica10_eq11614052705438996851.png" alt="$\omega$" style="width:10px;height:7px;"> est&aacute; relacionada con la distancia d desde el polo hasta <img src="Practica10_eq17778029819869168188.png" alt="$j\omega$" style="width:17px;height:14px;"></p>
+<p>
+<img src="Practica10_eq17604714111989593428.png" alt="$|H(j\omega)| = \frac{K}{d}$" style="width:79px;height:18px;"></p>
+<p>A medida que <img src="Practica10_eq11614052705438996851.png" alt="$\omega$" style="width:10px;height:7px;"> aumenta desde cero, d disminuye progresivamente hasta que <img src="Practica10_eq11614052705438996851.png" alt="$\omega$" style="width:10px;height:7px;"> alcanza el valor <img src="Practica10_eq07344504133822531019.png" alt="$\omega_0$" style="width:14px;height:10px;">. Despu&eacute;s de <img src="Practica10_eq07344504133822531019.png" alt="$\omega_0$" style="width:14px;height:10px;"> d aumenta progresivamente. Por lo tanto, la respuesta en amplitud <img src="Practica10_eq05003985003608650451.png" alt="$|H(j\omega)|$" style="width:46px;height:15px;"> aumenta desde <img src="Practica10_eq16595428302573305913.png" alt="$\omega = 0$" style="width:36px;height:10px;"> hasta <img src="Practica10_eq07772605199697633532.png" alt="$\omega = \omega_0$" style="width:43px;height:10px;"> y disminuye continuamente a medida que <img src="Practica10_eq11614052705438996851.png" alt="$\omega$" style="width:10px;height:7px;"> aumenta m&aacute;s all&aacute; de <img src="Practica10_eq07344504133822531019.png" alt="$\omega_0$" style="width:14px;height:10px;"> Esto resulta en un comportamiento selectivo en frecuencia que aumenta la ganancia en la frecuencia <img src="Practica10_eq07344504133822531019.png" alt="$\omega_0$" style="width:14px;height:10px;"> (resonancia). La resonancia se vuelve m&aacute;s pronunciada a medida que el polo se acerca al eje imaginario.</p>
+<p>Supresi&oacute;n de Ganancia por un Cero</p>
+<p>Zeros en <img src="Practica10_eq04865360511343126094.png" alt="$-\alpha \pm j\omega_0$" style="width:58px;height:14px;"> tienen el efecto opuesto de suprimir la ganancia en la cercan&iacute;a de <img src="Practica10_eq07344504133822531019.png" alt="$\omega_0$" style="width:14px;height:10px;">. Un cero en el eje imaginario en <img src="Practica10_eq02890573825380438766.png" alt="$j\omega_0$" style="width:22px;height:14px;"> suprimir&aacute; totalmente la ganancia en la frecuencia <img src="Practica10_eq07344504133822531019.png" alt="$\omega_0$" style="width:14px;height:10px;"> Zeros repetidos intensificar&aacute;n este efecto. Una combinaci&oacute;n cercana de un polo y un cero tender&aacute; a cancelar sus efectos mutuos en la respuesta en frecuencia. Estos conceptos se utilizan para dise&ntilde;ar filtros pasa bajos, pasa altos, pasa banda y rechaza banda.</p>
+<p>4.10-2 Filtros Pasa Bajos</p>
+<p>Un filtro pasa bajos t&iacute;pico tiene una ganancia m&aacute;xima en <img src="Practica10_eq16595428302573305913.png" alt="$\omega = 0$" style="width:36px;height:10px;">. Para lograr esto, se coloca un polo (o polos) en el eje real opuesto al origen <img src="Practica10_eq11601176094878380662.png" alt="$(j\omega = 0)$" style="width:53px;height:15px;">. La funci&oacute;n de transferencia para este sistema es:</p>
+<p>
+<img src="Practica10_eq02638087409386687247.png" alt="$H(s) = \frac{\omega_{c}}{s+\omega_{c}}$" style="width:76px;height:18px;"></p>
+<p>Donde <img src="Practica10_eq10874952498519892238.png" alt="$\omega_c$" style="width:14px;height:10px;"> es la frecuencia de corte. Para obtener una respuesta ideal, se necesitar&iacute;a una "pared" infinita de polos en el eje imaginario opuesto al intervalo de frecuencia de 0 a <img src="Practica10_eq10874952498519892238.png" alt="$\omega_c$" style="width:14px;height:10px;"></p>
+<p>4.10-3 Filtros Pasa Banda</p>
+<p>En un filtro pasa banda, la ganancia se incrementa sobre toda la banda de paso. Esto se logra colocando una "pared" de polos opuestos al eje imaginario frente a la banda de paso centrada en <img src="Practica10_eq00906344986750014284.png" alt="$\omega_{0}$" style="width:14px;height:10px;"> . Se requerir&iacute;a un n&uacute;mero infinito de polos para lograr una respuesta ideal. En la pr&aacute;ctica, se utilizan un n&uacute;mero finito de polos para comprometerse entre caracter&iacute;sticas ideales y practicidad.</p>
+<p>4.10-4 Filtros Elimina Bandas Una respuesta de amplitud ideal de un filtro elimina bandas es un complemento de la respuesta de amplitud de un filtro pasa banda ideal. Su ganancia es cero sobre una banda peque&ntilde;a centrada en una frecuencia  <img src="Practica10_eq07344504133822531019.png" alt="$\omega_0$" style="width:14px;height:10px;"> y es unidad sobre las frecuencias restantes. Para valores grandes de  <img src="Practica10_eq11614052705438996851.png" alt="$\omega$" style="width:10px;height:7px;"> el producto de las distancias de polos de <img src="Practica10_eq11614052705438996851.png" alt="$\omega$" style="width:10px;height:7px;"> ser&aacute; igual al producto de ceros de  <img src="Practica10_eq11614052705438996851.png" alt="$\omega$" style="width:10px;height:7px;"> Adem&aacute;s,la ganancia de unidad en  <img src="Practica10_eq05395492936896171415.png" alt="$\omega=0$" style="width:36px;height:10px;"> requiere que un polo y el cero correspondiente sean equidistantes del origen. Por ejemplo, si usamos 2 ceros (complejos-conjugados) debemos tener 2 polos; la distancia del origen de los polos y de los ceros deber&iacute;a ser la misma.</p>
+<p>4.10-5 Filtros Pr&aacute;cticos y sus especificaciones Para filtros ideales, las ganancias son cero o unidad sobre ciertas bandas. En la pr&aacute;ctica, vemos una variedad de caracter&iacute;sticas de filtros que solo se aproximan a las caracter&iacute;sticas ideales.</p>
+<p>Un filtro ideal tiene un pasa banda (unidad de ganancia) y un elimina banda (ganancia cero) con una transici&oacute;n repentina de la pasa banda a elimina banda. No hay una banda de transici&oacute;n. Para filtros pr&aacute;cticos, la transici&oacute;n de pasa banda a elimina banda (o viceversa) es gradual y toma lugar sobre una banda de frecuencias finitas. Adem&aacute;s, la ganancia no puede ser de cero sobre una banda finita. Como resultado no puede haber una elimina banda verdadera para filtros pr&aacute;cticos. Por tanto, definimos una elimina banda para que sea una banda sobre la cual la ganancia esta entre 1 y alg&uacute;n n&uacute;mero <img src="Practica10_eq02162728904424322618.png" alt="$G_[p]$" style="width:25px;height:17px;"> <img src="Practica10_eq06088083552132256090.png" alt="$G_[p]<1$" style="width:52px;height:17px;">.</p>
+<p>En un procedimiento de dise&ntilde;o t&iacute;pico, <img src="Practica10_eq02162728904424322618.png" alt="$G_[p]$" style="width:25px;height:17px;"> (Ganancia m&iacute;nima de pasa banda) y <img src="Practica10_eq01000586313442039197.png" alt="$G_[s]$" style="width:24px;height:17px;"> (m&aacute;xima ganancia de pasabanda) son especificados.Los filtros elimina bandas, pasa banda y paso alto pueden ser obtenidos de un filtro paso bajo por transformaciones simples de frecuencia</p>
+<h2 id="2">Problema 2.</h2>
+<p>Consideremos el siguiente sistema</p>
+<p>2a. Muestra que <img src="Practica10_eq02871244678257302244.png" alt="$|G(0j)|=1$" style="width:70px;height:15px;"></p>
+<p>
+<img src="Practica10_eq15403198026739760592.png" alt="$G(s)=\omega _{c}/(s+\omega _{c})$" style="width:120px;height:15px;"></p>
+<p>Para mostrar que <img src="Practica10_eq00701754840092082854.png" alt="$|G(j\omega)| = 1$" style="width:72px;height:15px;"> cuando <img src="Practica10_eq16595428302573305913.png" alt="$\omega = 0$" style="width:36px;height:10px;">, sustituimos <img src="Practica10_eq10742585855918706835.png" alt="$s = j\omega$" style="width:42px;height:14px;"> en la funci&oacute;n de transferencia <img src="Practica10_eq16173700751276411490.png" alt="$G(s)$" style="width:28px;height:15px;"></p>
+<p>
+<img src="Practica10_eq06706391537387338747.png" alt="$G(j\omega)=\frac{\omega _{c}}{j\omega + \omega _{c}}$" style="width:91px;height:18px;"></p>
+<p>Ahora, evaluamos la magnitud de <img src="Practica10_eq02108514847709605673.png" alt="$G(j \omega)$" style="width:38px;height:15px;"> cuando <img src="Practica10_eq16595428302573305913.png" alt="$\omega = 0$" style="width:36px;height:10px;"></p>
+<p>
+<img src="Practica10_eq15261020448802218414.png" alt="$|G(j\omega)| _{\omega =0} =| \frac{\omega _{c}}{j 0 + \omega _{c}}|$" style="width:125px;height:18px;"></p>
+<p>Simplificamos la expresion:</p>
+<p>
+<img src="Practica10_eq00463340881600087787.png" alt="$|G(j\omega)| _{\omega = 0}  = | \frac{\omega _{c}}{\omega _{c}}|$" style="width:106px;height:18px;"></p>
+<p>
+<img src="Practica10_eq15440036036918927283.png" alt="$|G(j\omega)| _{\omega = 0}  = |1|$" style="width:100px;height:15px;"></p>
+<p>
+<img src="Practica10_eq13168410936123536792.png" alt="$|G(j\omega)| _{\omega = 0}  = 1$" style="width:93px;height:15px;"></p>
+<p>Por lo tanto, hemos demostrado que <img src="Practica10_eq13168410936123536792.png" alt="$|G(j\omega)| _{\omega = 0}  = 1$" style="width:93px;height:15px;"> cuando <img src="Practica10_eq16595428302573305913.png" alt="$\omega = 0$" style="width:36px;height:10px;">. Esto significa que la magnitud de la funcion de transferencia en la frecuencia cero es igual a 1</p>
+<p>2b. Muestra que si se tiene una ganancia de <img src="Practica10_eq14980222903727240296.png" alt="$-3db$" style="width:32px;height:11px;"> entonces <img src="Practica10_eq04517580539070852432.png" alt="$\omega=\omega_c$" style="width:43px;height:10px;"></p>
+<p>Para demostrar que si se tiene una ganancia de -3 dB entonces <img src="Practica10_eq06140679627116745310.png" alt="$\omega = \omega_c$" style="width:43px;height:10px;"> para el sistema <img src="Practica10_eq18354528101067529140.png" alt="$G(s)=\frac{\omega_c}{s+\omega_c}$" style="width:74px;height:18px;"> partimos de la definici&oacute;n de ganancia en decibelios (dB):</p>
+<p>
+<img src="Practica10_eq06859271307079693626.png" alt="$G_{dB} = 20 \log_{10}(|G(j\omega)|)$" style="width:150px;height:15px;"></p>
+<p>Cuando la ganancia es -3 dB, tenemos:</p>
+<p>
+<img src="Practica10_eq12497308317617344998.png" alt="$-3 = 20 \log_{10}(|G(j\omega)|)$" style="width:142px;height:15px;"></p>
+<p>Dividimos ambos lados por 20:</p>
+<p>
+<img src="Practica10_eq16693587348773644901.png" alt="$-0.15 = \log_{10}(|G(j\omega)|)$" style="width:144px;height:15px;"></p>
+<p>Elevamos ambos lados a la base 10:</p>
+<p>
+<img src="Practica10_eq06850611602672603199.png" alt="$10^{-0.15} = |G(j\omega)|$" style="width:106px;height:17px;"></p>
+<p>$|G(j\omega)| = 0.707 $</p>
+<p>Ahora, sustituimos esto en la funci&oacute;n de transferencia:</p>
+<p>
+<img src="Practica10_eq16440304426187395349.png" alt="$|G(j\omega)| = \frac{\omega_c}{|j\omega + \omega_c|}$" style="width:103px;height:19px;"></p>
+<p>
+<img src="Practica10_eq03882174770013326473.png" alt="$0.707 = \frac{\omega_c}{|j\omega + \omega_c|}$" style="width:90px;height:18px;"></p>
+<p>Multiplicamos ambos lados por <img src="Practica10_eq04797273695685615095.png" alt="$|j\omega + \omega_c|$" style="width:54px;height:15px;"></p>
+<p>
+<img src="Practica10_eq13246842608743533531.png" alt="$0.707 \cdot |j\omega + \omega_c| = \omega_c$" style="width:134px;height:15px;"></p>
+<p>
+<img src="Practica10_eq09108907206600672310.png" alt="$|\omega_c + j\omega| = \frac{\omega_c}{0.707}$" style="width:100px;height:17px;"></p>
+<p>
+<img src="Practica10_eq14877754663045834434.png" alt="$|\omega_c + j\omega| = \sqrt{2} \cdot \omega_c$" style="width:119px;height:17px;"></p>
+<p>
+<img src="Practica10_eq03972201712510452938.png" alt="$\sqrt{\omega_c^2 + \omega^2} = \sqrt{2} \cdot \omega_c$" style="width:126px;height:18px;"></p>
+<p>Elevamos ambos lados al cuadrado:</p>
+<p>
+<img src="Practica10_eq00055025720259056377.png" alt="$\omega_c^2 + \omega^2 = 2 \cdot \omega_c^2$" style="width:101px;height:17px;"></p>
+<p>Restamos <img src="Practica10_eq00013670613700203158.png" alt="$\omega_c^2$" style="width:14px;height:17px;"> de ambos lados:</p>
+<p>
+<img src="Practica10_eq09689242389173353813.png" alt="$\omega^2 = \omega_c^2$" style="width:50px;height:17px;"></p>
+<p>Finalmente, tomamos la ra&iacute;z cuadrada:</p>
+<p>
+<img src="Practica10_eq06140679627116745310.png" alt="$\omega = \omega_c$" style="width:43px;height:10px;"></p>
+<p>Por lo tanto, hemos demostrado que si la ganancia es -3 dB, entonces <img src="Practica10_eq06140679627116745310.png" alt="$\omega = \omega_c$" style="width:43px;height:10px;"> para el sistema dado.</p>
+<p>2c. Para modificar el comportamiento del sistema, se realiza una retroalimentaci&oacute;n negativa con <img src="Practica10_eq18192616975017341192.png" alt="$k=9$" style="width:34px;height:11px;">. &iquest;Para qu&eacute; valor de <img src="Practica10_eq11614052705438996851.png" alt="$\omega$" style="width:10px;height:7px;"> se tiene una ganancia de <img src="Practica10_eq14980222903727240296.png" alt="$-3db$" style="width:32px;height:11px;">?, &iquest;Qu&eacute; concluye?</p>
+<p>Cuando se aplica retroalimentaci&oacute;n negativa a un sistema mediante un control proporcional k la nueva funci&oacute;n de transferencia del sistema se puede expresar como:</p>
+<p>
+<img src="Practica10_eq14273526061157331808.png" alt="$T(s) = \frac{G(s)}{1 + kG(s)}$" style="width:90px;height:23px;"></p>
+<p>Dado que inicialmente ten&iacute;amos <img src="Practica10_eq10561533946807522331.png" alt="$G(s) = \frac{\omega_c}{s + \omega_c}$" style="width:74px;height:18px;"> la nueva funci&oacute;n de transferencia con retroalimentaci&oacute;n negativa ser&iacute;a:</p>
+<p>
+<img src="Practica10_eq16856596481445247775.png" alt="$T(s) = \frac{\frac{\omega_c}{s + \omega_c}}{1 + 9 \cdot \frac{\omega_c}{s + \omega_c}}$" style="width:93px;height:27px;"></p>
+<p>Simplificamos esta expresi&oacute;n:</p>
+<p>
+<img src="Practica10_eq06079703051573500357.png" alt="$T(s) = \frac{\omega_c}{s + \omega_c + 9\omega_c}$" style="width:97px;height:18px;"></p>
+<p>
+<img src="Practica10_eq10240244932849032247.png" alt="$T(s) = \frac{\omega_c}{s + 10\omega_c}$" style="width:84px;height:18px;"></p>
+<p>Para encontrar la frecuencia <img src="Practica10_eq11614052705438996851.png" alt="$\omega$" style="width:10px;height:7px;"> en la cual la ganancia es -3 dB, usamos la misma l&oacute;gica que antes. La ganancia en decibelios est&aacute; dada por:</p>
+<p>
+<img src="Practica10_eq08792989042212652438.png" alt="$G_{dB} = 20 \log_{10}(|T(j\omega)|)$" style="width:149px;height:15px;"></p>
+<p>Cuando <img src="Practica10_eq06877970187900391464.png" alt="$G_{dB} = -3$" style="width:63px;height:14px;">, tenemos:</p>
+<p>
+<img src="Practica10_eq15419333032932595855.png" alt="$-3 = 20 \log_{10}(|T(j\omega)|)$" style="width:141px;height:15px;"></p>
+<p>Dividimos ambos lados por 20:</p>
+<p>
+<img src="Practica10_eq03746743171549014399.png" alt="$-0.15 = \log_{10}(|T(j\omega)|)$" style="width:142px;height:15px;"></p>
+<p>Elevamos ambos lados a la base 10:</p>
+<p>
+<img src="Practica10_eq13258485824265365526.png" alt="$10^{-0.15} = |T(j\omega)|$" style="width:106px;height:17px;"></p>
+<p>
+<img src="Practica10_eq09425709475576725956.png" alt="$|T(j\omega)| = 0.707$" style="width:98px;height:15px;"></p>
+<p>Sustituimos en la funci&oacute;n de transferencia con retroalimentaci&oacute;n negativa:</p>
+<p>
+<img src="Practica10_eq02377466466804281183.png" alt="$|T(j\omega)| = \frac{\omega_c}{\sqrt{(\omega + 10\omega_c)^2}}$" style="width:126px;height:24px;"></p>
+<p>
+<img src="Practica10_eq09940334698409678754.png" alt="$0.707 = \frac{\omega_c}{\sqrt{(\omega + 10\omega_c)^2}}$" style="width:114px;height:23px;"></p>
+<p>Multiplicamos ambos lados por <img src="Practica10_eq07855022960318551893.png" alt="$\sqrt{(\omega + 10\omega_c)^2}$" style="width:87px;height:18px;"></p>
+<p>
+<img src="Practica10_eq00228299468119498051.png" alt="$0.707 \cdot \sqrt{(\omega + 10\omega_c)^2} = \omega_c$" style="width:166px;height:18px;"></p>
+<p>
+<img src="Practica10_eq06415314262801156037.png" alt="$\sqrt{(\omega + 10\omega_c)^2} = \frac{\omega_c}{0.707}$" style="width:132px;height:19px;"></p>
+<p>Elevamos ambos lados al cuadrado:</p>
+<p>
+<img src="Practica10_eq02282515153878272677.png" alt="$(\omega + 10\omega_c)^2 = \left(\frac{\omega_c}{0.707}\right)^2$" style="width:138px;height:22px;"></p>
+<p>Resolvemos para <img src="Practica10_eq11614052705438996851.png" alt="$\omega$" style="width:10px;height:7px;"></p>
+<p>
+<img src="Practica10_eq00637679476780550970.png" alt="$\omega + 10\omega_c = \pm \frac{\omega_c}{0.707}$" style="width:113px;height:16px;"></p>
+<p>
+<img src="Practica10_eq02543403666527575742.png" alt="$\omega = -10\omega_c \pm \frac{\omega_c}{0.707}$" style="width:113px;height:16px;"> En conclusion la retroalimentaci&oacute;n negativa ha alterado el comportamiento del sistema y ha cambiado la frecuencia a la cual se alcanza la ganancia de -3 dB. La elecci&oacute;n de la soluci&oacute;n depender&aacute; de la configuraci&oacute;n espec&iacute;fica del sistema y de las condiciones iniciales.</p>
+<p>
+<img src="Practica10_eq14273526061157331808.png" alt="$T(s) = \frac{G(s)}{1 + kG(s)}$" style="width:90px;height:23px;"></p>
+<p>Dado que inicialmente ten&iacute;amos <img src="Practica10_eq10561533946807522331.png" alt="$G(s) = \frac{\omega_c}{s + \omega_c}$" style="width:74px;height:18px;"> la nueva funci&oacute;n de transferencia con retroalimentaci&oacute;n negativa ser&iacute;a:</p>
+<p>
+<img src="Practica10_eq07523879102328350127.png" alt="$T(s) = \frac{\frac{\omega_c}{s + \omega_c}}{1 + 0.9 \cdot \frac{\omega_c}{s + \omega_c}}$" style="width:101px;height:27px;"></p>
+<p>Simplificamos esta expresi&oacute;n:</p>
+<p>
+<img src="Practica10_eq08872702115454540564.png" alt="$T(s) = \frac{\omega_c}{s + \omega_c + 0.9\omega_c}$" style="width:105px;height:18px;"></p>
+<p>
+<img src="Practica10_eq09748925746616968425.png" alt="$T(s) = \frac{\omega_c}{s + 1.9\omega_c}$" style="width:86px;height:18px;"></p>
+<p>Para encontrar la frecuencia <img src="Practica10_eq11614052705438996851.png" alt="$\omega$" style="width:10px;height:7px;"> en la cual la ganancia es -3 dB utilizamos la misma l&oacute;gica que antes. La ganancia en decibelios est&aacute; dada por:</p>
+<p>
+<img src="Practica10_eq08792989042212652438.png" alt="$G_{dB} = 20 \log_{10}(|T(j\omega)|)$" style="width:149px;height:15px;"></p>
+<p>Cuando <img src="Practica10_eq06877970187900391464.png" alt="$G_{dB} = -3$" style="width:63px;height:14px;">, tenemos:</p>
+<p>
+<img src="Practica10_eq15419333032932595855.png" alt="$-3 = 20 \log_{10}(|T(j\omega)|)$" style="width:141px;height:15px;"></p>
+<p>Dividimos ambos lados por 20:</p>
+<p>
+<img src="Practica10_eq03746743171549014399.png" alt="$-0.15 = \log_{10}(|T(j\omega)|)$" style="width:142px;height:15px;"></p>
+<p>Elevamos ambos lados a la base 10:</p>
+<p>
+<img src="Practica10_eq13258485824265365526.png" alt="$10^{-0.15} = |T(j\omega)|$" style="width:106px;height:17px;"></p>
+<p>
+<img src="Practica10_eq09425709475576725956.png" alt="$|T(j\omega)| = 0.707$" style="width:98px;height:15px;"></p>
+<p>Sustituimos en la funci&oacute;n de transferencia con retroalimentaci&oacute;n negativa:</p>
+<p>
+<img src="Practica10_eq17228998516885867370.png" alt="$|T(j\omega)| = \frac{\omega_c}{\sqrt{(\omega + 1.9\omega_c)^2}}$" style="width:130px;height:24px;"></p>
+<p>
+<img src="Practica10_eq13615350550798727150.png" alt="$0.707 = \frac{\omega_c}{\sqrt{(\omega + 1.9\omega_c)^2}}$" style="width:118px;height:23px;"></p>
+<p>Multiplicamos ambos lados por <img src="Practica10_eq17770126786647527127.png" alt="$\sqrt{(\omega + 1.9\omega_c)^2}$" style="width:91px;height:18px;">:</p>
+<p>
+<img src="Practica10_eq13250161860511310173.png" alt="$0.707 \cdot \sqrt{(\omega + 1.9\omega_c)^2} = \omega_c$" style="width:170px;height:18px;"></p>
+<p>
+<img src="Practica10_eq17782056252696176107.png" alt="$\sqrt{(\omega + 1.9\omega_c)^2} = \frac{\omega_c}{0.707}$" style="width:136px;height:19px;"></p>
+<p>Elevamos ambos lados al cuadrado:</p>
+<p>
+<img src="Practica10_eq07391532003540754907.png" alt="$(\omega + 1.9\omega_c)^2 = \left(\frac{\omega_c}{0.707}\right)^2$" style="width:142px;height:22px;"></p>
+<p>Resolvemos para <img src="Practica10_eq11614052705438996851.png" alt="$\omega$" style="width:10px;height:7px;">:</p>
+<p>
+<img src="Practica10_eq04568978803682663168.png" alt="$\omega + 1.9\omega_c = \pm \frac{\omega_c}{0.707}$" style="width:117px;height:16px;"></p>
+<p>
+<img src="Practica10_eq13199149511134819431.png" alt="$\omega = -1.9\omega_c \pm \frac{\omega_c}{0.707}$" style="width:117px;height:16px;"></p>
+<h2 id="3">Problema 5</h2>
+<p>Se tiene el siguiente sistema <img src="Practica10_eq15504908199775528970.png" alt="$\bar{x}+5x = f$" style="width:70px;height:14px;"></p>
+<p>5a. &iquest;El sistema es BIBO estable? <img src="Practica10_eq01129170034786461579.png" alt="$H(s) = \frac{1}{s+5}$" style="width:71px;height:19px;"></p>
+<p>El polo est&aacute; en s=-5 (parte real negativa) por lo tanto es BIBO estable</p>
+<p>5b. Encuentre la respuesta (anal&iacute;tica) para condiciones iniciales cero del sistema si <img src="Practica10_eq03571149629081405843.png" alt="$f(t)=sen(\sqrt{5} t)u(t)$" style="width:127px;height:17px;"> \therefore , recuerde aplicar el resultado de convoluci&oacute;n si es necesario. usamos Laplace</p>
+<p>
+<img src="Practica10_eq13371464410799902294.png" alt="$\frac{dx}{dt}+5x=sin(\sqrt{5t})u(t)\rightarrow \L^{-1} = s (s) - x(0) + 5x(s) = \frac{\sqrt{5}}{s^{2} + 5}$" style="width:380px;height:22px;"></p>
+<p>como x(0) = 0, simplificamos:</p>
+<p>
+<img src="Practica10_eq07233794061285268756.png" alt="$sx(s)+5x(s)=\frac{\sqrt{5}}{s^{2} + 5}$" style="width:130px;height:22px;"></p>
+<p>Resolvemos para x(s)</p>
+<p>
+<img src="Practica10_eq04204256712046268072.png" alt="$x(s)= \frac{\sqrt{5}}{s^{2} + 5}$" style="width:70px;height:22px;"></p>
+<p>
+<img src="Practica10_eq14089161047221699802.png" alt="$x(s)=\frac{A}{s+5} + \frac{B_{s} +C}{s^{2}+5}$" style="width:115px;height:20px;"></p>
+<p>Resolvemos para A, B y C y obtenemos</p>
+<p>
+<img src="Practica10_eq02183555835091204095.png" alt="$A=\frac{\sqrt{s}}{20}$" style="width:46px;height:21px;"> , <img src="Practica10_eq11354963076381592548.png" alt="$B=0$" style="width:38px;height:11px;"> , <img src="Practica10_eq03038327948254232719.png" alt="$c=-\frac{\sqrt{5}}{20}$" style="width:53px;height:21px;"></p>
+<p>En el dominio de Laplace: <img src="Practica10_eq14830051180443116197.png" alt="$x(s)=\frac{\sqrt{5}}{20} (\frac{1}{s+s} - \frac{1}{s^{2}+5}$" style="width:133px;height:22px;"></p>
+<h2 id="4">Problema 6</h2>
+<p>Pr&aacute;ctica 7: Series de Fourier en tiempo continuo</p>
+<pre class="codeinput">
+<span class="comment">%* Moreno Castro Jos&eacute; Pablo</span>
+<span class="comment">%* Pedraza Ocampo Eduardo</span>
+<span class="comment">%* Portillo Mart&iacute;nez Carolina</span>
+<span class="comment">%* Reyes Alvarez Angelinvestigue la instrucci&oacute;n linearSystemAnalyzer (disposible a partir de 2015a) y con ayuda de esta, reporte las gr&aacute;ficas de</span>
+<span class="comment">% 6a. Respuesta al Impulso</span>
+<span class="comment">%</span>
+<span class="comment">% 6b. Respuesta al escal&oacute;n</span>
+<span class="comment">%</span>
+<span class="comment">% 6c. Respuesta a $x(t)=cos(2t)u(t)$</span>
+<span class="comment">%</span>
+<span class="comment">% 6d. Graficas de Bode</span>
+<span class="comment">% Para condiciones iniciales cero y 10 segundos de simulaci&oacute;n, para el sistema.</span>
+<span class="comment">%</span>
+<span class="comment">% $$\ddot{y}+3\dot{y}+2y=x$$</span>
+<span class="comment">%</span>
+<span class="comment">% La funci&oacute;n linearSystemAnalyzer proporciona una interfaz gr&aacute;fica para el an&aacute;lisis</span>
+<span class="comment">% y la visualizaci&oacute;n de sistemas lineales.Se puede utilizar esta herramienta</span>
+<span class="comment">% para analizar la respuesta de un sistema a diferentes entradas y examinar sus caracter&iacute;sticas</span>
+<span class="comment">% como la respuesta al escal&oacute;n, la respuesta al impulso, el diagrama de Bode, el diagrama de Nyquist, entre otros.</span>
+<span class="comment">% La sintaxis b&aacute;sica de la funci&oacute;n es:</span>
+<span class="comment">%</span>
+<span class="comment">%  linearSystemAnalyzer(sys)</span>
+<span class="comment">%</span>
+<span class="comment">% donde sys es el modelo del sistema que se desea analizar</span>
+<span class="comment">% Puede ser de espacio de estados, transferencia, o cualquier otro tipo compatible con el an&aacute;lisis de sistemas lineales en MATLAB.</span>
+<span class="comment">% Al utilizar linearSystemAnalyzer, se abrir&aacute; una interfaz gr&aacute;fica que</span>
+<span class="comment">% permite seleccionar y visualizar diferentes tipos de respuestas del sistema</span>
+<span class="comment">% Se puedes agregar varias respuestas a la vez y compararlas en la misma ventana.</span>
+<span class="comment">%</span>
+<span class="comment">% Definici&oacute;n del sistema</span>
+numerador = 1;
+denominador = [1, 3, 2];
+system = tf(numerador, denominador);
+
+<span class="comment">% Condiciones iniciales y tiempo de simulaci&oacute;n</span>
+Condiciones_iniciales = [0; 0];
+Tiempo_de_simulacion = 10;
+
+<span class="comment">% 6a. Respuesta al Impulso</span>
+t_impulso = 0:0.01:Tiempo_de_simulacion;
+respuesta_impulso = impulse(system, t_impulso);
+figure;
+plot(t_impulso, respuesta_impulso);
+title(<span class="string">'Respuesta al Impulso'</span>);
+xlabel(<span class="string">'Tiempo'</span>);
+ylabel(<span class="string">'Amplitud'</span>);
+
+<span class="comment">% 6b. Respuesta al escal&oacute;n</span>
+t_step = 0:0.01:Tiempo_de_simulacion;
+Respuesta_escalon = step(system, t_step);
+figure;
+plot(t_step, Respuesta_escalon);
+title(<span class="string">'Respuesta al Escal&oacute;n'</span>);
+xlabel(<span class="string">'Tiempo'</span>);
+ylabel(<span class="string">'Amplitud'</span>);
+
+<span class="comment">% 6c. Respuesta a x(t) = cos(2t)u(t)</span>
+t_coseno = 0:0.01:Tiempo_de_simulacion;
+u_coseno = cos(2 * t_coseno) .* (t_coseno &gt;= 0);  <span class="comment">% u(t) = 1 para t &gt;= 0</span>
+lsim_resp = lsim(system, u_coseno, t_coseno, Condiciones_iniciales);
+figure;
+plot(t_coseno, lsim_resp);
+title(<span class="string">'Respuesta a x(t) = cos(2t)u(t)'</span>);
+xlabel(<span class="string">'Tiempo'</span>);
+ylabel(<span class="string">'Amplitud'</span>);
+
+<span class="comment">% 6d. Gr&aacute;ficas de Bode</span>
+figure;
+bode(system);
+title(<span class="string">'Gr&aacute;ficas de Bode'</span>);
+<span class="comment">%</span>
+</pre>
+<img vspace="5" hspace="5" src="Practica10_01.png" alt=""> <img vspace="5" hspace="5" src="Practica10_02.png" alt=""> <img vspace="5" hspace="5" src="Practica10_03.png" alt=""> <img vspace="5" hspace="5" src="Practica10_04.png" alt=""> <p class="footer">
+<br>
+<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2023b</a>
+<br>
+</p>
+</div>
+<!--
+##### SOURCE BEGIN #####
+%% Práctica 10: Respuesta en frecuencia, simulación en MATLAB
+% * Moreno Castro José Pablo
+% * Pedraza Ocampo Eduardo
+% * Portillo Martínez Carolina
+% * Reyes Alvarez Angel
+%
+%% Introducción
+% En esta sección, exploramos la fuerte dependencia de la respuesta en 
+% frecuencia en la ubicación de polos y ceros de H(s).
+% Esta dependencia señala un procedimiento intuitivo simple para el diseño 
+% de filtros.
+%
+% 4.10-1 Dependencia de la Respuesta en Frecuencia en Polos y Ceros de H(s)
+%
+% La respuesta en frecuencia de un sistema proporciona información sobre la
+% capacidad de filtrado del sistema.
+% La función de transferencia del sistema se puede expresar como:
+% 
+% $H(s) = \frac{P(s)}{Q(s)} = b_{0} \frac{(s-z_{1})(s-z_{2})\cdots (s-z_{N})}{(s-\lambda_{1})(s-\lambda_{2})\cdots(s-\lambda_{N})}$ 
+% 
+% donde $z _{1}$, $z_{2}$, ..., $z_{N}$ son ceros y $\lambda _{1}$, $\lambda_ {2}$, ..., $\lambda _{N}$ son los polos de H(s).
+% La respuesta de la función de transferencia H(s) en una frecuencia s = p es:
+% 
+% $H(s)|{s=p} = b{0} \frac{(p-z_{1})(p-z_{2})\cdots(p-z_{N})}{(p-\lambda_{1})(p-\lambda_{2})\cdots(p-\lambda_{N})}$
+% 
+% Esta ecuación incluye factores de la forma $(p - z_{i})$ y $(p - \lambda _{i})$,
+% que se representan como vectores en el plano complejo.
+% La magnitud de estos vectores y sus ángulos se utilizan para calcular
+% $|H(s)|{s=p}$ y $\angle H(s)|{s=p}$
+% 
+% Por lo tanto,
+% 
+% $|H(s)|{s=p} = b{0} \frac{r_{1}r_{2}\cdots r_{N}}{d_{1}d_{2}\cdots d_{N}}$
+% 
+% y
+% 
+% $\angle H(s)|{s=p} = (\phi{1} + \phi_{2} + \cdots + \phi_{N}) - (\theta_{1}+\theta_{2}+\cdots+\theta_{N})$
+% 
+% Usando este procedimiento, se puede determinar $H(s)$ para cualquier valor de s.
+% Para calcular la respuesta en frecuencia $H(j\omega)$, se utiliza $s = j\omega$ 
+% se conectan todos los polos y ceros a $j\omega$ y se determinan $|H(j\omega)|$ 
+% y $\angle H(j\omega)$ utilizando las ecuaciones anteriores.
+% 
+% Mejora de Ganancia por un Polo
+% 
+% Para comprender el efecto de los polos y ceros en la respuesta en frecuencia,
+% se considera un caso hipotético de un solo polo $-\alpha + j\omega_0$. 
+% La respuesta en amplitud $|H(j\omega)|$ para un valor específico de $\omega$ 
+% está relacionada con la distancia d desde el polo hasta $j\omega$
+% 
+% $|H(j\omega)| = \frac{K}{d}$
+% 
+% A medida que $\omega$ aumenta desde cero, d disminuye progresivamente
+% hasta que $\omega$ alcanza el valor $\omega_0$. Después de $\omega_0$
+% d aumenta progresivamente. Por lo tanto, la respuesta en amplitud $|H(j\omega)|$ aumenta desde $\omega = 0$ 
+% hasta $\omega = \omega_0$ y disminuye continuamente a medida que $\omega$ aumenta más allá de $\omega_0$ 
+% Esto resulta en un comportamiento selectivo en frecuencia que aumenta la 
+% ganancia en la frecuencia $\omega_0$ (resonancia). La resonancia se vuelve
+% más pronunciada a medida que el polo se acerca al eje imaginario.
+% 
+% Supresión de Ganancia por un Cero
+% 
+% Zeros en $-\alpha \pm j\omega_0$ tienen el efecto opuesto de suprimir 
+% la ganancia en la cercanía de $\omega_0$. Un cero en el eje imaginario en
+% $j\omega_0$ suprimirá totalmente la ganancia en la frecuencia $\omega_0$
+% Zeros repetidos intensificarán este efecto. Una combinación cercana de un
+% polo y un cero tenderá a cancelar sus efectos mutuos en la respuesta en frecuencia.
+% Estos conceptos se utilizan para diseñar filtros pasa bajos, pasa altos,
+% pasa banda y rechaza banda.
+% 
+% 4.10-2 Filtros Pasa Bajos
+% 
+% Un filtro pasa bajos típico tiene una ganancia máxima en $\omega = 0$. 
+% Para lograr esto, se coloca un polo (o polos) en el eje real opuesto al origen
+% $(j\omega = 0)$. La función de transferencia para este sistema es:
+% 
+% $H(s) = \frac{\omega_{c}}{s+\omega_{c}}$
+% 
+% Donde $\omega_c$ es la frecuencia de corte. Para obtener una respuesta ideal,
+% se necesitaría una "pared" infinita de polos en el eje imaginario opuesto al
+% intervalo de frecuencia de 0 a $\omega_c$
+% 
+% 4.10-3 Filtros Pasa Banda
+% 
+% En un filtro pasa banda, la ganancia se incrementa sobre toda la banda de
+% paso. Esto se logra colocando una "pared" de polos opuestos al eje imaginario 
+% frente a la banda de paso centrada en $\omega_{0}$ . Se requeriría un número infinito
+% de polos para lograr una respuesta ideal. En la práctica, se utilizan un 
+% número finito de polos para comprometerse entre características ideales y practicidad.
+%  
+% 4.10-4 Filtros Elimina Bandas
+% Una respuesta de amplitud ideal de un filtro elimina bandas es un complemento
+% de la respuesta de amplitud de un filtro pasa banda ideal. Su ganancia es
+% cero sobre una banda pequeña centrada en una frecuencia  $\omega_0$ y es unidad
+% sobre las frecuencias restantes. Para valores grandes de  $\omega$ el producto
+% de las distancias de polos de $\omega$ será igual al producto de ceros de  $\omega$
+% Además,la ganancia de unidad en  $\omega=0$ requiere que un polo y el cero correspondiente
+% sean equidistantes del origen. Por ejemplo, si usamos 2 ceros (complejos-conjugados)
+% debemos tener 2 polos; la distancia del origen de los polos y de los ceros debería ser la misma.
+% 
+% 4.10-5 Filtros Prácticos y sus especificaciones
+% Para filtros ideales, las ganancias son cero o unidad sobre ciertas bandas.
+% En la práctica, vemos una variedad de características de filtros que solo 
+% se aproximan a las características ideales. 
+% 
+% Un filtro ideal tiene un pasa banda (unidad de ganancia) y un elimina banda
+% (ganancia cero) con una transición repentina de la pasa banda a elimina banda.
+% No hay una banda de transición. Para filtros prácticos, la transición de pasa
+% banda a elimina banda (o viceversa) es gradual y toma lugar sobre una banda de
+% frecuencias finitas. Además, la ganancia no puede ser de cero sobre una banda finita.
+% Como resultado no puede haber una elimina banda verdadera para filtros prácticos. 
+% Por tanto, definimos una elimina banda para que sea una banda sobre la cual 
+% la ganancia esta entre 1 y algún número $G_[p]$ $G_[p]<1$.
+% 
+% En un procedimiento de diseño típico, $G_[p]$ (Ganancia mínima de pasa
+% banda) y $G_[s]$
+% (máxima ganancia de pasabanda) son especificados.Los filtros elimina bandas, 
+% pasa banda y paso alto pueden ser obtenidos de un filtro paso bajo por transformaciones
+% simples de frecuencia
+% 
+%
+%% Problema 2. 
+% Consideremos el siguiente sistema
+%
+% 2a. Muestra que $|G(0j)|=1$
+%
+% $G(s)=\omega _{c}/(s+\omega _{c})$
+%
+% Para mostrar que $|G(j\omega)| = 1$ cuando $\omega = 0$, sustituimos $s = j\omega$ en la función de transferencia $G(s)$
+%
+% $G(j\omega)=\frac{\omega _{c}}{j\omega + \omega _{c}}$ 
+%
+% Ahora, evaluamos la magnitud de $G(j \omega)$ cuando $\omega = 0$
+%
+% $|G(j\omega)| _{\omega =0} =| \frac{\omega _{c}}{j 0 + \omega _{c}}|$
+%
+% Simplificamos la expresion:
+%
+% $|G(j\omega)| _{\omega = 0}  = | \frac{\omega _{c}}{\omega _{c}}|$
+%
+% $|G(j\omega)| _{\omega = 0}  = |1|$
+%
+% $|G(j\omega)| _{\omega = 0}  = 1$
+%
+% Por lo tanto, hemos demostrado que $|G(j\omega)| _{\omega = 0}  = 1$
+% cuando $\omega = 0$. Esto significa que la magnitud de la funcion de
+% transferencia en la frecuencia cero es igual a 1
+%
+% 2b. Muestra que si se tiene una ganancia de $-3db$ entonces $\omega=\omega_c$
+% 
+% Para demostrar que si se tiene una ganancia de -3 dB
+% entonces $\omega = \omega_c$ para el sistema $G(s)=\frac{\omega_c}{s+\omega_c}$
+% partimos de la definición de ganancia en decibelios (dB):
+% 
+% $G_{dB} = 20 \log_{10}(|G(j\omega)|)$
+% 
+% Cuando la ganancia es -3 dB, tenemos:
+% 
+% $-3 = 20 \log_{10}(|G(j\omega)|)$
+% 
+% Dividimos ambos lados por 20:
+% 
+% $-0.15 = \log_{10}(|G(j\omega)|)$
+% 
+% Elevamos ambos lados a la base 10:
+% 
+% $10^{-0.15} = |G(j\omega)|$
+% 
+% $|G(j\omega)| = 0.707 $
+% 
+% Ahora, sustituimos esto en la función de transferencia:
+% 
+% $|G(j\omega)| = \frac{\omega_c}{|j\omega + \omega_c|}$
+% 
+% $0.707 = \frac{\omega_c}{|j\omega + \omega_c|}$
+% 
+% Multiplicamos ambos lados por $|j\omega + \omega_c|$
+% 
+% $0.707 \cdot |j\omega + \omega_c| = \omega_c$
+% 
+% $|\omega_c + j\omega| = \frac{\omega_c}{0.707}$
+% 
+% $|\omega_c + j\omega| = \sqrt{2} \cdot \omega_c$
+%  
+% $\sqrt{\omega_c^2 + \omega^2} = \sqrt{2} \cdot \omega_c$
+% 
+% Elevamos ambos lados al cuadrado:
+% 
+% $\omega_c^2 + \omega^2 = 2 \cdot \omega_c^2$
+% 
+% Restamos $\omega_c^2$ de ambos lados:
+% 
+% $\omega^2 = \omega_c^2$
+% 
+% Finalmente, tomamos la raíz cuadrada:
+% 
+% $\omega = \omega_c$
+% 
+% Por lo tanto, hemos demostrado que si la ganancia es -3 dB, entonces $\omega = \omega_c$ para el sistema dado.
+%
+% 2c. Para modificar el comportamiento del sistema, se realiza una retroalimentación negativa con $k=9$.
+% ¿Para qué valor de $\omega$ se tiene una ganancia de $-3db$?, ¿Qué concluye?
+%
+% Cuando se aplica retroalimentación negativa a un sistema mediante un control proporcional k
+% la nueva función de transferencia del sistema se puede expresar como:
+% 
+% $T(s) = \frac{G(s)}{1 + kG(s)}$
+% 
+% Dado que inicialmente teníamos $G(s) = \frac{\omega_c}{s + \omega_c}$
+% la nueva función de transferencia con retroalimentación negativa sería:
+% 
+% $T(s) = \frac{\frac{\omega_c}{s + \omega_c}}{1 + 9 \cdot \frac{\omega_c}{s + \omega_c}}$
+% 
+% Simplificamos esta expresión:
+% 
+% $T(s) = \frac{\omega_c}{s + \omega_c + 9\omega_c}$
+% 
+% $T(s) = \frac{\omega_c}{s + 10\omega_c}$
+% 
+% Para encontrar la frecuencia $\omega$ en la cual la ganancia es -3 dB,
+% usamos la misma lógica que antes. La ganancia en decibelios está dada por:
+% 
+% $G_{dB} = 20 \log_{10}(|T(j\omega)|)$
+% 
+% Cuando $G_{dB} = -3$, tenemos:
+% 
+% $-3 = 20 \log_{10}(|T(j\omega)|)$
+% 
+% Dividimos ambos lados por 20:
+% 
+% $-0.15 = \log_{10}(|T(j\omega)|)$
+% 
+% Elevamos ambos lados a la base 10:
+% 
+% $10^{-0.15} = |T(j\omega)|$
+% 
+% $|T(j\omega)| = 0.707$
+% 
+% Sustituimos en la función de transferencia con retroalimentación negativa:
+% 
+% $|T(j\omega)| = \frac{\omega_c}{\sqrt{(\omega + 10\omega_c)^2}}$
+% 
+% $0.707 = \frac{\omega_c}{\sqrt{(\omega + 10\omega_c)^2}}$
+% 
+% Multiplicamos ambos lados por $\sqrt{(\omega + 10\omega_c)^2}$
+% 
+% $0.707 \cdot \sqrt{(\omega + 10\omega_c)^2} = \omega_c$
+% 
+% $\sqrt{(\omega + 10\omega_c)^2} = \frac{\omega_c}{0.707}$
+% 
+% Elevamos ambos lados al cuadrado:
+% 
+% $(\omega + 10\omega_c)^2 = \left(\frac{\omega_c}{0.707}\right)^2$
+% 
+% Resolvemos para $\omega$
+% 
+% $\omega + 10\omega_c = \pm \frac{\omega_c}{0.707}$
+% 
+% $\omega = -10\omega_c \pm \frac{\omega_c}{0.707}$
+% En conclusion la retroalimentación negativa ha alterado el comportamiento
+% del sistema y ha cambiado la frecuencia a la cual se alcanza la ganancia de -3 dB.
+% La elección de la solución dependerá de la configuración específica del sistema y de las condiciones iniciales.
+%
+%
+% $T(s) = \frac{G(s)}{1 + kG(s)}$
+% 
+% Dado que inicialmente teníamos $G(s) = \frac{\omega_c}{s + \omega_c}$ 
+% la nueva función de transferencia con retroalimentación negativa sería:
+% 
+% $T(s) = \frac{\frac{\omega_c}{s + \omega_c}}{1 + 0.9 \cdot \frac{\omega_c}{s + \omega_c}}$
+% 
+% Simplificamos esta expresión:
+% 
+% $T(s) = \frac{\omega_c}{s + \omega_c + 0.9\omega_c}$
+% 
+% $T(s) = \frac{\omega_c}{s + 1.9\omega_c}$
+% 
+% Para encontrar la frecuencia $\omega$ en la cual la ganancia es -3 dB
+% utilizamos la misma lógica que antes. La ganancia en decibelios está dada por:
+% 
+% $G_{dB} = 20 \log_{10}(|T(j\omega)|)$
+% 
+% Cuando $G_{dB} = -3$, tenemos:
+% 
+% $-3 = 20 \log_{10}(|T(j\omega)|)$
+% 
+% Dividimos ambos lados por 20:
+% 
+% $-0.15 = \log_{10}(|T(j\omega)|)$
+% 
+% Elevamos ambos lados a la base 10:
+% 
+% $10^{-0.15} = |T(j\omega)|$
+% 
+% $|T(j\omega)| = 0.707$
+% 
+% Sustituimos en la función de transferencia con retroalimentación negativa:
+% 
+% $|T(j\omega)| = \frac{\omega_c}{\sqrt{(\omega + 1.9\omega_c)^2}}$
+% 
+% $0.707 = \frac{\omega_c}{\sqrt{(\omega + 1.9\omega_c)^2}}$
+% 
+% Multiplicamos ambos lados por $\sqrt{(\omega + 1.9\omega_c)^2}$:
+% 
+% $0.707 \cdot \sqrt{(\omega + 1.9\omega_c)^2} = \omega_c$
+% 
+% $\sqrt{(\omega + 1.9\omega_c)^2} = \frac{\omega_c}{0.707}$
+% 
+% Elevamos ambos lados al cuadrado:
+% 
+% $(\omega + 1.9\omega_c)^2 = \left(\frac{\omega_c}{0.707}\right)^2$
+% 
+% Resolvemos para $\omega$:
+% 
+% $\omega + 1.9\omega_c = \pm \frac{\omega_c}{0.707}$
+% 
+% $\omega = -1.9\omega_c \pm \frac{\omega_c}{0.707}$
+%% Problema 5
+% Se tiene el siguiente sistema 
+% $\bar{x}+5x = f$
+%
+% 5a. ¿El sistema es BIBO estable?
+% $H(s) = \frac{1}{s+5}$
+%
+% El polo está en s=-5 (parte real negativa) por lo tanto es BIBO estable
+%
+% 5b. Encuentre la respuesta (analítica) para condiciones iniciales cero 
+% del sistema si $f(t)=sen(\sqrt{5} t)u(t)$ \therefore , recuerde aplicar el resultado de
+% convolución si es necesario.
+% usamos Laplace 
+%
+% $\frac{dx}{dt}+5x=sin(\sqrt{5t})u(t)\rightarrow \L^{-1} = s (s) - x(0) + 5x(s) = \frac{\sqrt{5}}{s^{2} + 5}$  
+%
+% como x(0) = 0, simplificamos:
+%
+% $sx(s)+5x(s)=\frac{\sqrt{5}}{s^{2} + 5}$
+%
+% Resolvemos para x(s)
+%
+% $x(s)= \frac{\sqrt{5}}{s^{2} + 5}$
+%
+% $x(s)=\frac{A}{s+5} + \frac{B_{s} +C}{s^{2}+5}$
+% 
+% Resolvemos para A, B y C y obtenemos
+%
+% $A=\frac{\sqrt{s}}{20}$ , $B=0$ , $c=-\frac{\sqrt{5}}{20}$
+%
+% En el dominio de Laplace: $x(s)=\frac{\sqrt{5}}{20} (\frac{1}{s+s} - \frac{1}{s^{2}+5}$
+%
+%% Problema 6 
+% Práctica 7: Series de Fourier en tiempo continuo
+%* Moreno Castro José Pablo
+%* Pedraza Ocampo Eduardo
+%* Portillo Martínez Carolina
+%* Reyes Alvarez Angelinvestigue la instrucción linearSystemAnalyzer (disposible a partir de 2015a) y con ayuda de esta, reporte las gráficas de
+% 6a. Respuesta al Impulso
+% 
+% 6b. Respuesta al escalón
+% 
+% 6c. Respuesta a $x(t)=cos(2t)u(t)$
+% 
+% 6d. Graficas de Bode
+% Para condiciones iniciales cero y 10 segundos de simulación, para el sistema.
+%
+% $$\ddot{y}+3\dot{y}+2y=x$$
+%
+% La función linearSystemAnalyzer proporciona una interfaz gráfica para el análisis
+% y la visualización de sistemas lineales.Se puede utilizar esta herramienta 
+% para analizar la respuesta de un sistema a diferentes entradas y examinar sus características
+% como la respuesta al escalón, la respuesta al impulso, el diagrama de Bode, el diagrama de Nyquist, entre otros.
+% La sintaxis básica de la función es:
+% 
+%  linearSystemAnalyzer(sys)
+% 
+% donde sys es el modelo del sistema que se desea analizar
+% Puede ser de espacio de estados, transferencia, o cualquier otro tipo compatible con el análisis de sistemas lineales en MATLAB.
+% Al utilizar linearSystemAnalyzer, se abrirá una interfaz gráfica que 
+% permite seleccionar y visualizar diferentes tipos de respuestas del sistema
+% Se puedes agregar varias respuestas a la vez y compararlas en la misma ventana.
+%
+% Definición del sistema
+numerador = 1;
+denominador = [1, 3, 2];
+system = tf(numerador, denominador);
+
+% Condiciones iniciales y tiempo de simulación
+Condiciones_iniciales = [0; 0];
+Tiempo_de_simulacion = 10;
+
+% 6a. Respuesta al Impulso
+t_impulso = 0:0.01:Tiempo_de_simulacion;
+respuesta_impulso = impulse(system, t_impulso);
+figure;
+plot(t_impulso, respuesta_impulso);
+title('Respuesta al Impulso');
+xlabel('Tiempo');
+ylabel('Amplitud');
+
+% 6b. Respuesta al escalón
+t_step = 0:0.01:Tiempo_de_simulacion;
+Respuesta_escalon = step(system, t_step);
+figure;
+plot(t_step, Respuesta_escalon);
+title('Respuesta al Escalón');
+xlabel('Tiempo');
+ylabel('Amplitud');
+
+% 6c. Respuesta a x(t) = cos(2t)u(t)
+t_coseno = 0:0.01:Tiempo_de_simulacion;
+u_coseno = cos(2 * t_coseno) .* (t_coseno >= 0);  % u(t) = 1 para t >= 0
+lsim_resp = lsim(system, u_coseno, t_coseno, Condiciones_iniciales);
+figure;
+plot(t_coseno, lsim_resp);
+title('Respuesta a x(t) = cos(2t)u(t)');
+xlabel('Tiempo');
+ylabel('Amplitud');
+
+% 6d. Gráficas de Bode
+figure;
+bode(system);
+title('Gráficas de Bode');
+%
+##### SOURCE END #####
+-->
+</body>
+</html>
